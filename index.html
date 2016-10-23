@@ -5,38 +5,39 @@
   <!-- Basic Page Needs
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
-  <title>Take a walk for a line</title>
-  <meta name="description" content="">
-  <meta name="author" content="">
+  <title>dumbdraw 0.1</title>
 
   <!-- Mobile Specific Metas
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- FONT
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
 
   <!-- CSS
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="stylesheet" href="css/normalize.css">
-<!--   <link rel="stylesheet" href="css/jquery.minicolors.css">
- -->  <link rel="stylesheet" href="css/skeleton.css">
-  
+
+  <style type="text/css">
+body{
+  margin: 0;
+}
+
+.stop-scrolling {
+  overflow: hidden;
+  position: fixed;
+  background: black;
+}
+
+canvas{
+background: url(imgs/background.png);
+background-size: 100vw;
+background-repeat: no-repeat;
+};
+  </style>
 
   <!-- JS
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <script src="js/plugins.js"></script>
-<!--   <script src="js/jquery.minicolors.min.js"></script>
- -->  <script src="js/p5.min.js"></script>
+  <script src="js/p5.min.js"></script>
   <script src="js/p5.dom.min.js"></script>
-  <script src="js/sketch_2.js"></script>
-  <script src="js/main.js"></script>
-
-
-  <!-- Favicon
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="icon" type="image/png" href="images/favicon.png">
+  <script src="js/sketch.js"></script>
 
 </head>
 <body class = "stop-scrolling">
