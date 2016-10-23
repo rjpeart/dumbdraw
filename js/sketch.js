@@ -7,21 +7,28 @@ var pz;
 var size;
 var velX;
 var velY;
-var time;
 var trace;
-var bground;
 var colour;
-var timestart;
-var timeend;
-var timeDiff;
-var timeListener = 0;
+var dragging = false;
 
 function setup(){
 	colorMode(HSL, 255);
+	
 	canvas = createCanvas(windowWidth, windowHeight);
-	//canvas.style("visibility", "visible")
-	canvas.touchMoved(updateColour);
-	background(0);
+	
+	//on drag, update the ellipse colour
+	canvas.touchMoved(ellipseColour);
+	
+	//on touch, update the canvas colour
+	canvas.touchEnded(canvasColour);
+	
+	//reset the drag listener to false, to prevent every touch resetting the background
+	canvas.touchStarted(function(){
+		dragging = false;
+	});
+
+	//starting background is black
+	
 	
 	//center the point and give is a diameter of 1
 	x = windowWidth/2;
@@ -33,18 +40,26 @@ function setup(){
 	velY = 0;
 	velZ = 0;
 
-	//starting colour black
-	//col = 0;
-
-	//time since the sketch started
-	time = millis();
-
+	//initiate objects
 	trace = new Circles();
-	//bground = color('rgb(0,0,250)');
+
+	//starting colour
 	colour = 255;
 };
 
 function draw(){
+
+		trace.addForces();
+		trace.display();
+
+};
+
+function Circles(){
+	this.x = x;
+	this.y = y;
+	this.diameter = 7;
+
+	this.addForces = function(){
 
 		//calculate your velocities from accelerometer data
 		//Dividing it out so it fits on iPhone screen.
@@ -52,11 +67,8 @@ function draw(){
 		velY = velY + (accelerationY*1/60)/1.25;
 		velZ = velZ + (accelerationZ*1/60)/1.25;
 
-		//using this to get a dynamic colour
-		//avg = (accelerationX+accelerationY+accelerationZ)/3;
-
-		//set shit to zero if you're not accelerating.
-		//stops shit getting wild.
+		//set velocity to zero if you're not accelerating.
+		//stops it getting wild.
 		if (-0.1 < accelerationX && accelerationX < 0.1){
 			velX=0;
 		};
@@ -69,13 +81,10 @@ function draw(){
 			velZ=0;
 		};
 
-		//dynamic sizing based on Z acceleration
+		//dynamic size of ellipse based on Z acceleration
 		size = map(velZ, -1, 1, 1, 25);
 		
-		//dynamic alpha based on velocity
-		//col = map(avg, -10, 10, 0, 255);
-		
-		//readings before they get updated
+		//position readings before they get updated
 		px = x;
 		py = y;
 		pz = z;
@@ -116,63 +125,41 @@ function draw(){
 			//strokeWeight(0);
 		};
 
-
-		//trace.updateColour();
-		trace.display();
-
-
-};
-
-function save(){
-	saveCanvas();
-};
-
-
-function Circles(){
-	this.x = x;
-	this.y = y;
-	this.diameter = 7;
+	};
 
 	this.display = function(){
-		//console.log(this.backgroundColour);
 		strokeWeight(0.5);
 		stroke(colour,255, brightness-20, 255);
 		fill(colour, 255, brightness, 255);
 		ellipse(x, y, size,size);
-		//strokeWeight(size);
-		//line(px,py,x,y);
 	};
 
 }
 
-function updateColour(){
+function ellipseColour(){
+	//set dragging to true
+	dragging = true;
+
+	//update the ellipse colour
 	colour = map(touchX, 0, windowWidth, 0, 255);
 	brightness = map(touchY, 0, windowHeight, 0, 255);
-	console.log(touchX);
-	console.log(colour);
+
 	};
 
+function canvasColour(){
 
+	//first check if dragging is in progress
+	//if it is, then don't do anything.
+	if (dragging)
+		return;
 
-function touchStarted(){
-	timeDiff = 1000;
-	timestart = millis();
-	console.log(timestart);
-
-};
-
-function touchEnded() {
-
-	timeend = millis();
-	console.log(timeend);
-
-	timeDiff = timeend-timestart;
-
-	if(timeDiff < 50){
-		console.log('fuckyes');
-		noStroke();
-		fill(colour, 255, brightness, 255);
-		rect(0,0,windowWidth,windowHeight);
+	//if no dragging is going on, then reset the background colour.
+	noStroke();
+	background(colour,255,brightness,255);
+	
 	};
-};
+
+	
+
+
 
