@@ -26,11 +26,42 @@ body{
   background: black;
 }
 
+p{
+  color: white;
+  font-family: sans-serif, "helvetica";
+  font-size: 2em;
+  padding: 0 0.5em 0 0.5em;
+}
+
+.intro{
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  /*z-index: -1000;*/
+}
+
+.intro_b{
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  opacity: 0;
+}
+
+.hide{
+  display: none;
+}
+
 canvas{
-background: url(imgs/background.png);
+background-color: black;
 background-size: 100vw;
 background-repeat: no-repeat;
 };
+
   </style>
 
   <!-- JS
@@ -39,9 +70,18 @@ background-repeat: no-repeat;
   <script src="js/p5.dom.min.js"></script>
   <script src="js/sketch.js"></script>
 
+
 </head>
 <body class = "stop-scrolling">
-    
+<div id="int" class="intro">
+  <button class="intro_b" onclick="begin()"></button>
+  <p>dumbdraw 0.2</p>
+  <p>tap screen to begin</p>
+  <p>move your phone around to draw</p>
+  <p>drag to change the pen colour</p>
+  <p>tap to reset with a new background colour</p>
+  <p>take a screenshot to save the picture</p>
+</div>
 <!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 </body>

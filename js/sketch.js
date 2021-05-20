@@ -45,14 +45,21 @@ function setup(){
 
 	//starting colour
 	colour = 255;
+	// let col = color(25, 23, 200, 50);
+	// let button = createButton('submit');
+	// button.style('opacity', 0.5);
+	// button.position(0,0);
+	// button.size(windowWidth,windowHeight);
+	// button.mousePressed(begin);
+
 };
 
 function draw(){
 
-		trace.addForces();
-		trace.display();
+			trace.addForces();
+			trace.display();
 
-};
+    	}
 
 function Circles(){
 	this.x = x;
@@ -128,7 +135,7 @@ function Circles(){
 	};
 
 	this.display = function(){
-		strokeWeight(0.5);
+		strokeWeight(0);
 		stroke(colour,255, brightness-20, 255);
 		fill(colour, 255, brightness, 255);
 		ellipse(x, y, size,size);
@@ -158,6 +165,16 @@ function canvasColour(){
 	background(colour,255,brightness,255);
 	
 	};
+
+
+function begin() {
+  console.log('pressed')
+  var intro = document.getElementById("int");
+  intro.style.cssText += 'display:none;';
+  DeviceMotionEvent.requestPermission();
+  button.hide();	
+}
+
 
 	
 
